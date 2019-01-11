@@ -1,0 +1,116 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Craigslist crawler
+  description: API to manipulate search requests assigned to particular user
+  contact:
+    name: Usein Mambediiev
+    email: useinm@gmail.com
+  license:
+    name: MIT
+    url: http://opensource.org/licenses/MIT
+schemes: 
+- "http"
+paths:
+  /search:
+    get:
+      summary: Get list of all user's search requests
+      parameters: 
+        - in: body
+          name: body
+          description: request object
+          required: true
+          schema:
+            $ref: '#/definitions/GetAllRequest'
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Search'
+        403:
+          description: user unauthorized
+  /search/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: Search request ID
+    put:
+      summary: Create new search request
+      parameters: 
+        - in: body
+          name: body
+          description: search request object
+          required: true
+          schema:
+            $ref: '#/definitions/Search'
+      responses:
+        200:
+          description: successful operation
+        403:
+          description: user unauthorized
+        409:
+          description: search request with this id already exists
+    patch:
+      summary: Update existing search request
+      parameters: 
+        - in: body
+          name: body
+          description: search request
+          required: true
+          schema:
+            $ref: '#/definitions/Search'
+      responses:
+        200:
+          description: successful operation
+        403:
+          description: user unauthorized
+        404:
+          description: search request not found
+    delete:
+      summary: Delete existing search request
+      responses:
+        200:
+          description: successful operation
+        403:
+          description: user unauthorized
+        404:
+          description: search request not found
+    
+definitions:
+  GetAllRequest:
+    type: object
+    required:
+      - "UserEmail"
+    properties:
+      UserEmail:
+        type: string
+  Search:
+    type: object
+    required:
+      - "SearchId"
+      - "UserEmail"
+      - "URL"
+    properties:
+      SearchId:
+        description: Search request ID.
+        type: string
+      UserEmail:
+        description: Owner user's email.
+        type: string
+      URL:
+        description: Search request URL.
+        type: string
+      IsActive:
+        description: Indicates whether search request is active or not. Inactive requests are not processed by crawler.
+        type: boolean
+      Created:
+        description: Created date and time.
+        type: string
+      Updated:
+        description: Last updated date and time.
+        type: string
