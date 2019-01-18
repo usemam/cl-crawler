@@ -110,7 +110,7 @@ var Crawler = window.Crawler || {};
         signin(email, password,
             function signinSuccess() {
                 console.log('Successfully Logged In');
-                window.location.href = 'requests.html';
+                window.location.href = 'request.html';
             },
             function signinError(err) {
                 alert(err);
