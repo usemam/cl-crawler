@@ -12,6 +12,28 @@ var Crawler = window.Crawler || {};
         alert(error);
         window.location.href = '/login.html';
     });
+
+    function getAll() {
+        $.ajax({
+            method: 'GET',
+            url: _config.api.invokeUrl + '/search',
+            headers: {
+                Authorization: authToken
+            },
+            contentType: 'application/json',
+            success: refreshGrid,
+            error: function (xhr, status, errorMessage) {
+                console.error("Error getting user's search requests: ", status, ", details: ", errorMessage);
+                console.error("Response: ", xhr.responseText);
+                alert("Error getting user's search requests:\n" + xhr.responseText);
+            }
+        });
+    }
+
+    function refreshGrid(result) {
+        // todo
+    }
+
     function randomId() {
         var id = "";
         var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -20,4 +42,19 @@ var Crawler = window.Crawler || {};
         }
         return id;
     }
+
+    $(function onDocReady() {
+        $("#logOut").click(function() {
+            Crawler.logOut();
+            alert("You have logged out.");
+            window.location = "login.html";
+        });
+
+        if (!_config.api.invokeUrl) {
+            $("#noApiMessage").show();
+        }
+        else {
+            getAll();
+        }
+    });
 }(jQuery));
