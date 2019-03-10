@@ -32,6 +32,7 @@
                         <tr>
                             <th>URL</th>
                             <th>Active</th>
+                            <th>Updated</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -42,6 +43,9 @@
                             </td>
                             <td>
                                 <input type='checkbox' data-bind="checked: isActive" />
+                            </td>
+                            <td>
+                                <span data-bind="text: updated">&nbsp;</span>
                             </td>
                             <td>
                                 <button data-bind="click: save, enable: isDirty">Save</button>
