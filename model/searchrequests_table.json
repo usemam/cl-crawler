@@ -1,0 +1,37 @@
+{
+    "TableName": "SearchRequests",
+    "AttributeDefinitions": [
+        {
+            "AttributeName": "searchId",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "userEmail",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "url",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "isActive",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "created",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "updated",
+            "AttributeType": "S"
+        }
+    ],
+    "KeySchema": [{
+        "KeyType": "HASH",
+        "AttributeName": "searchId"
+    }],
+    "ProvisionedThroughput": {
+        "WriteCapacityUnits": 5,
+        "ReadCapacityUnits": 5
+    }
+}
