@@ -5,12 +5,12 @@ import usemam.clc.model.SearchRequest;
 import java.util.List;
 import java.util.Optional;
 
-public interface SearchRequestDao {
+public interface SearchRequestRepository {
     List<SearchRequest> findRequestsByUser(String userEmail);
 
-    Optional<SearchRequest> findRequestById(String searchId);
+    Optional<SearchRequest> findRequestByIdAndEmail(String searchId, String userEmail);
 
     void saveOrUpdateRequest(SearchRequest request);
 
-    void deleteRequest(String searchId);
+    void deleteRequest(String searchId, String userEmail);
 }
