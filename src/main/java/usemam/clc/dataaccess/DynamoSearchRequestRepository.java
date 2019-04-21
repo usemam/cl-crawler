@@ -1,27 +1,28 @@
 package usemam.clc.dataaccess;
 
-import com.amazonaws.regions.Region;
-import com.amazonaws.regions.Regions;
-import usemam.clc.model.SearchRequest;
-
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.Optional;
 
+import usemam.clc.model.SearchRequest;
+
 public class DynamoSearchRequestRepository implements SearchRequestRepository {
 
     private static final Logger log =
             Logger.getLogger(DynamoSearchRequestRepository.class);
 
-    private static final DynamoDBMapper mapper = createMapper(Regions.US_EAST_2);
+    private final DynamoDBMapper mapper;
+
+    public DynamoSearchRequestRepository(DynamoDBMapper mapper) {
+        this.mapper = mapper;
+    }
 
     public List<SearchRequest> findRequestsByUser(String userEmail) {
         DynamoDBQueryExpression<SearchRequest> query = new DynamoDBQueryExpression<>();
         SearchRequest requestKey = new SearchRequest();
-        requestKey.userEmail = userEmail;
+        requestKey.setUserEmail(userEmail);
         query.setHashKeyValues(requestKey);
         return mapper.query(SearchRequest.class, query);
     }
@@ -48,9 +49,4 @@ public class DynamoSearchRequestRepository implements SearchRequestRepository {
         }
     }
 
-    private static DynamoDBMapper createMapper(Regions regions) {
-        AmazonDynamoDBClient client = new AmazonDynamoDBClient();
-        client.setRegion(Region.getRegion(regions));
-        return new DynamoDBMapper(client);
-    }
 }

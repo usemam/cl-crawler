@@ -9,23 +9,79 @@ import java.io.Serializable;
 @DynamoDBTable(tableName = "SearchRequests")
 public class SearchRequest implements Serializable {
     @DynamoDBRangeKey
-    public String searchId;
+    private String searchId;
 
     @DynamoDBHashKey
-    public String userEmail;
+    private String userEmail;
 
     @DynamoDBAttribute
-    public String url;
+    private String url;
 
     @DynamoDBAttribute
-    public boolean isActive;
+    private boolean active;
 
     @DynamoDBAttribute
-    public Date created;
+    private Date created;
 
     @DynamoDBAttribute
-    public Date updated;
+    private Date updated;
 
     @DynamoDBAttribute
-    public List<Ad> ads;
+    private List<Ad> ads;
+
+    public String getSearchId() {
+        return searchId;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public boolean getActive() {
+        return active;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public List<Ad> getAds(){
+        return ads;
+    }
+
+    public void setSearchId(String searchId) {
+        this.searchId = searchId;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
+    }
+
+    public void setAds(List<Ad> ads) {
+        this.ads = ads;
+    }
 }
