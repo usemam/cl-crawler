@@ -38,5 +38,4 @@ public class LocalDynamoCreationRule extends ExternalResource {
         ServerSocket serverSocket = new ServerSocket(0);
         return String.valueOf(serverSocket.getLocalPort());
     }
-
 }

@@ -99,7 +99,7 @@ public class DynamoSearchRequestRepositoryTest {
         ad.setUrl("http://localhost");
         ad.setTitle("Very interesting ad");
         ad.setLocation("Folsom, CA");
-        ad.setPrice(100);
+        ad.setPrice("$100");
         List<Ad> ads = new ArrayList<>();
         ads.add(ad);
         request.setAds(ads);

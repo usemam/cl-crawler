@@ -48,5 +48,4 @@ public class DynamoSearchRequestRepository implements SearchRequestRepository {
             throw new IllegalArgumentException("Delete failed for nonexistent search request");
         }
     }
-
 }

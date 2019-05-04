@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 @DynamoDBTable(tableName = "SearchRequests")
 public class SearchRequest implements Serializable {
+
     @DynamoDBRangeKey
     private String searchId;
 

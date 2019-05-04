@@ -3,8 +3,11 @@ package usemam.clc.model;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBDocument;
 
+import java.util.Date;
+
 @DynamoDBDocument
 public class Ad {
+
     @DynamoDBAttribute
     private String url;
 
@@ -15,7 +18,7 @@ public class Ad {
     private String location;
 
     @DynamoDBAttribute
-    private int price;
+    private String price;
 
     public String getUrl() {
         return url;
@@ -29,7 +32,7 @@ public class Ad {
         return location;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
@@ -45,7 +48,7 @@ public class Ad {
         this.location = location;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 }
