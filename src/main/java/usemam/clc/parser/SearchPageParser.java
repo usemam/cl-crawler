@@ -21,12 +21,18 @@ public class SearchPageParser implements PageParser<List<Ad>> {
             Element titleElement = item.selectFirst("a.result-title");
             Element priceElement = item.selectFirst("span.result-meta span.result-price");
             Element hoodElement = item.selectFirst("span.result-meta span.result-hood");
+            Element nearbyElement = item.selectFirst("span.result-meta span.nearby");
 
             Ad ad = new Ad();
             ad.setTitle(titleElement.text());
             ad.setUrl(titleElement.attr("href"));
             ad.setPrice(priceElement.text());
-            ad.setLocation(hoodElement.text());
+            if (hoodElement != null) {
+                ad.setLocation(hoodElement.text());
+            }
+            else if (nearbyElement != null) {
+                ad.setLocation(nearbyElement.text());
+            }
 
             ads.add(ad);
         }
