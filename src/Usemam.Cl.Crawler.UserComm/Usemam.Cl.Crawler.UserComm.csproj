@@ -5,4 +5,8 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Usemam.Cl.Crawler.Domain\Usemam.Cl.Crawler.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
