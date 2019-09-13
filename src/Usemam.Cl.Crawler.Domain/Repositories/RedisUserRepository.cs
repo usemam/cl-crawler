@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using ServiceStack.Redis;
 using Usemam.Cl.Crawler.Domain.Model;
 
@@ -11,6 +11,15 @@ namespace Usemam.Cl.Crawler.Domain.Repositories
         public RedisUserRepository(IRedisClientsManager clientsManager)
         {
             _clientsManager = clientsManager;
+        }
+
+        public IEnumerable<string> GetAllUserEmails()
+        {
+            using (var client = _clientsManager.GetReadOnlyClient())
+            {
+                var users = client.As<User>();
+                return users.GetAllKeys();
+            }
         }
 
         public User GetByEmail(string email)
