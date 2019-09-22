@@ -1,5 +1,8 @@
 ﻿using System;
 using Hangfire;
+using Usemam.Cl.Crawler.AppHost;
+using Usemam.Cl.Crawler.Domain.Repositories;
+using Usemam.Cl.Crawler.Scheduler.Jobs;
 
 namespace Usemam.Cl.Crawler.Scheduler
 {
@@ -7,29 +10,16 @@ namespace Usemam.Cl.Crawler.Scheduler
     {
         static void Main(string[] args)
         {
-            string redisHost;
-            try
-            {
-                redisHost = args[0];
-            }
-            catch
-            {
-                Console.WriteLine("Redis host is not provided");
-                return;
-            }
-
-            int redisPort;
-            try
-            {
-                redisPort = int.Parse(args[1]);
-            }
-            catch
-            {
-                Console.WriteLine("Redis port is not provided");
-                return;
-            }
-
-            new AppHost(redisHost, redisPort).Init();
+            var appHost = new AppHostBuilder()
+                .WithName("Scheduler component")
+                .WithAssembly(typeof(Program).Assembly)
+                .WithAssembly(typeof(RedisUserRepository).Assembly)
+                .WithLogging(b => b.LoggerFor<NotifyParserJob>())
+                .WithRedis(b => b.WithHostInfoFromArgs(args))
+                .WithMessaging()
+                .WithExtension(new HangfireConfigurationExtension())
+                .Build();
+            appHost.Init();
 
             using (new BackgroundJobServer())
             {

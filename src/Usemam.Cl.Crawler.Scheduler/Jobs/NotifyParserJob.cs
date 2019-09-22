@@ -1,5 +1,6 @@
-﻿using System;
+﻿using ServiceStack;
 using ServiceStack.Messaging;
+using Usemam.Cl.Crawler.Domain.Messages;
 using Usemam.Cl.Crawler.Domain.Repositories;
 
 namespace Usemam.Cl.Crawler.Scheduler.Jobs
@@ -19,7 +20,14 @@ namespace Usemam.Cl.Crawler.Scheduler.Jobs
 
         public void Execute()
         {
-            throw new NotImplementedException();
+            var userEmails = _userRepository.GetAllUserEmails();
+            using (var messageClient = _messageService.CreateMessageQueueClient())
+            {
+                foreach (string userEmail in userEmails)
+                {
+                    messageClient.Publish(new SearchAds { UserEmail = userEmail });
+                }
+            }
         }
     }
 }

@@ -6,7 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Usemam.Cl.Crawler.AppHost\Usemam.Cl.Crawler.AppHost.csproj" />
     <ProjectReference Include="..\Usemam.Cl.Crawler.Domain\Usemam.Cl.Crawler.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Html\" />
   </ItemGroup>
 
 </Project>
