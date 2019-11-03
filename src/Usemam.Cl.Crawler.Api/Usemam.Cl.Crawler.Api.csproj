@@ -7,10 +7,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Usemam.Cl.Crawler.AppHost\Usemam.Cl.Crawler.AppHost.csproj" />
     <ProjectReference Include="..\Usemam.Cl.Crawler.Domain\Usemam.Cl.Crawler.Domain.csproj" />
   </ItemGroup>
 

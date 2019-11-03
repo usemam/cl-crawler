@@ -10,7 +10,7 @@ namespace Usemam.Cl.Crawler.Scheduler
     {
         static void Main(string[] args)
         {
-            var appHost = new AppHostBuilder()
+            var appHost = new HostBuilder()
                 .WithName("Scheduler component")
                 .WithAssembly(typeof(Program).Assembly)
                 .WithAssembly(typeof(RedisUserRepository).Assembly)
@@ -18,7 +18,7 @@ namespace Usemam.Cl.Crawler.Scheduler
                 .WithRedis(b => b.WithHostInfoFromArgs(args))
                 .WithMessaging()
                 .WithExtension(new HangfireConfigurationExtension())
-                .Build();
+                .BuildAppHost();
             appHost.Init();
 
             using (new BackgroundJobServer())

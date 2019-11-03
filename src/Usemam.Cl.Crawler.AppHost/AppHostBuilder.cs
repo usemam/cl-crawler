@@ -5,25 +5,25 @@ using Usemam.Cl.Crawler.AppHost.Extensions;
 
 namespace Usemam.Cl.Crawler.AppHost
 {
-    public class AppHostBuilder
+    public class HostBuilder
     {
         private readonly IList<Assembly> _assemblies = new List<Assembly>();
         private readonly IList<IAppHostExtension> _extensions = new List<IAppHostExtension>();
         private string _hostName;
 
-        public AppHostBuilder WithName(string name)
+        public HostBuilder WithName(string name)
         {
             _hostName = name;
             return this;
         }
 
-        public AppHostBuilder WithAssembly(Assembly assembly)
+        public HostBuilder WithAssembly(Assembly assembly)
         {
             _assemblies.Add(assembly);
             return this;
         }
 
-        public AppHostBuilder WithRedis(Action<IRedisConfiguration> configuration)
+        public HostBuilder WithRedis(Action<IRedisConfiguration> configuration)
         {
             var redisExtension = new RedisHostExtension();
             configuration(redisExtension);
@@ -31,7 +31,7 @@ namespace Usemam.Cl.Crawler.AppHost
             return this;
         }
 
-        public AppHostBuilder WithMessaging(Action<IMessagingBuilder> configureHandlers = null)
+        public HostBuilder WithMessaging(Action<IMessagingBuilder> configureHandlers = null)
         {
             var messagingExtension = new MessagingHostExtension();
             configureHandlers?.Invoke(messagingExtension);
@@ -39,7 +39,7 @@ namespace Usemam.Cl.Crawler.AppHost
             return this;
         }
 
-        public AppHostBuilder WithLogging(Action<ILoggingBuilder> configureLoggers)
+        public HostBuilder WithLogging(Action<ILoggingBuilder> configureLoggers)
         {
             var loggingExtension = new LoggingHostExtension();
             configureLoggers(loggingExtension);
@@ -47,15 +47,20 @@ namespace Usemam.Cl.Crawler.AppHost
             return this;
         }
 
-        public AppHostBuilder WithExtension(IAppHostExtension extension)
+        public HostBuilder WithExtension(IAppHostExtension extension)
         {
             _extensions.Add(extension);
             return this;
         }
 
-        public AppHost Build()
+        public AppHost BuildAppHost()
         {
             return new AppHost(_hostName, _assemblies, _extensions);
+        }
+
+        public WebHost BuildWebHost()
+        {
+            return new WebHost(_hostName, _assemblies, _extensions);
         }
     }
 }

@@ -9,14 +9,14 @@ namespace Usemam.Cl.Crawler.Parser
     {
         static void Main(string[] args)
         {
-            var appHost = new AppHostBuilder()
+            var appHost = new HostBuilder()
                 .WithName("Parser component")
                 .WithAssembly(typeof(Program).Assembly)
                 .WithAssembly(typeof(RedisUserRepository).Assembly)
                 .WithLogging(b => b.LoggerFor<SearchAdsMessageHandler>())
                 .WithRedis(c => c.WithHostInfoFromArgs(args))
                 .WithMessaging(b => b.WithMessageHandler<SearchAdsMessageHandler, SearchAds>())
-                .Build();
+                .BuildAppHost();
             appHost.Init();
 
             Console.WriteLine("Press any key to stop...");
